@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>وضع أوفلاين — مِحور الهندسي</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #090D16;
+    color: #E2E8F0;
+    padding: 20px;
+  }
+  .card {
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    background: #111827;
+    border: 1px solid #1F2937;
+    border-radius: 20px;
+    padding: 36px 28px;
+  }
+  .icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0d9488, #2563EB);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+  }
+  h1 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+  p { font-size: 13px; color: #94A3B8; line-height: 1.9; margin-bottom: 8px; }
+  .row { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+  a.btn, button.btn {
+    display: inline-block;
+    background: #0d9488; color: #fff; border: none;
+    padding: 12px 24px; border-radius: 12px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    text-decoration: none;
+  }
+  a.btn:hover, button.btn:hover { background: #0f766e; }
+  button.ghost {
+    background: transparent; color: #94A3B8;
+    border: 1px solid #334155; padding: 12px 24px;
+    border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .status { margin-top: 14px; font-size: 12px; color: #64748b; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; margin-left: 6px; }
+  .dot.on { background: #10b981; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">📴</div>
+    <h1>أنت شغال أوفلاين دلوقتي</h1>
+    <p>
+      مفيش إنترنت، بس شغلك محفوظ على جهازك.<br />
+      افتح آخر نسخة محفوظة من الداشبورد وكمّل شغل —
+      وأي تعديل هيتحفظ في طابور وهيترفع تلقائياً أول ما النت يرجع.
+    </p>
+    <div class="row">
+      <a class="btn" href="/">فتح الداشبورد المحفوظة</a>
+      <button class="ghost" onclick="window.location.reload()">إعادة المحاولة</button>
+    </div>
+    <div class="status"><span id="dot" class="dot"></span><span id="txt">بانتظار الاتصال…</span></div>
+  </div>
+<script>
+  (function () {
+    function paint() {
+      var on = navigator.onLine;
+      document.getElementById('dot').className = 'dot' + (on ? ' on' : '');
+      document.getElementById('txt').textContent = on ? 'النت رجع — جاري فتح الداشبورد…' : 'بانتظار الاتصال…';
+      if (on) setTimeout(function () { window.location.href = '/'; }, 900);
+    }
+    window.addEventListener('online', paint);
+    window.addEventListener('offline', paint);
+    paint();
+  })();
+</script>
+</body>
+</html>
